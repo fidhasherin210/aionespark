@@ -293,28 +293,25 @@ function HeroSlider() {
               {/* Content */}
               <AnimatePresence mode="wait">
                 {current === idx && (
-                  <motion.div
-                    key={idx}
-                    initial={{ opacity: 0, y: 24 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -12 }}
-                    transition={{ duration: 0.6 }}
-                    className="absolute bottom-0 left-0 right-0 p-5 md:p-6"
-                  >
-                    {/* Eyebrow */}
-                    <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-medium uppercase tracking-widest text-white backdrop-blur-sm">
-                      <span className="h-1.5 w-1.5 rounded-full bg-white/70" />
-                      {slide.eyebrow}
-                    </span>
+                 <motion.div
+  key={idx}
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  exit={{ opacity: 0, y: -10 }}
+  transition={{ duration: 0.5 }}
+  className="absolute bottom-0 left-0 right-0 p-3 md:p-4"
+>
+  {/* Eyebrow */}
+  <span className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-white/10 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-white backdrop-blur-xs">
+    <span className="h-1 w-1 rounded-full bg-white/70" />
+    {slide.eyebrow}
+  </span>
 
-                    {/* Heading */}
-                    <h2 className="mt-2 text-2xl font-bold leading-tight text-white md:text-4xl">
-                      {slide.headline}
-                    </h2>
-
-                    {/* CTA */}
-                  
-                  </motion.div>
+  {/* Heading */}
+  <h2 className="mt-1 w-[60%] text-lg font-bold leading-tight text-white md:text-3xl pb-3">
+  {slide.headline}
+</h2>
+</motion.div>
                 )}
               </AnimatePresence>
             </div>
@@ -322,24 +319,24 @@ function HeroSlider() {
         </div>
 
         {/* Dots */}
-        <div className="absolute bottom-4 right-6 flex items-center gap-2">
-          {slides.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => {
-                if (timerRef.current) clearInterval(timerRef.current);
-                goTo(i);
-                startAuto();
-              }}
-              className={`rounded-full bg-white transition-all duration-500 ${
-                i === current
-                  ? "h-2 w-8 opacity-100"
-                  : "h-2 w-2 opacity-50 hover:opacity-80"
-              }`}
-              aria-label={`Go to slide ${i + 1}`}
-            />
-          ))}
-        </div>
+       <div className="absolute bottom-3 right-4 flex items-center gap-1.5">
+  {slides.map((_, i) => (
+    <button
+      key={i}
+      onClick={() => {
+        if (timerRef.current) clearInterval(timerRef.current);
+        goTo(i);
+        startAuto();
+      }}
+      className={`rounded-full bg-white transition-all duration-500 ${
+        i === current
+          ? "h-1.5 w-6 opacity-100"
+          : "h-1.5 w-1.5 opacity-50 hover:opacity-80"
+      }`}
+      aria-label={`Go to slide ${i + 1}`}
+    />
+  ))}
+</div>
       </div>
     </RevealSection>
   );

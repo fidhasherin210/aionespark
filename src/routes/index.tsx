@@ -319,7 +319,7 @@ function HeroSlider() {
         </div>
 
         {/* Dots */}
-       <div className="absolute bottom-3 right-4 flex items-center gap-1.5">
+        <div className="absolute bottom-3 right-4 flex items-center gap-1.5">
   {slides.map((_, i) => (
     <button
       key={i}
@@ -337,7 +337,7 @@ function HeroSlider() {
     />
   ))}
 </div>
-      </div>
+</div>
     </RevealSection>
   );
 }
@@ -349,8 +349,20 @@ function LogosSection() {
 
   const logoRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
 
   const duplicatedLogos = [...companyLogos, ...companyLogos];
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   useEffect(() => {
     let frameId = 0;
@@ -376,7 +388,6 @@ function LogosSection() {
       });
 
       setActiveIndex(closest);
-
       frameId = requestAnimationFrame(updateCenterLogo);
     };
 
@@ -403,17 +414,14 @@ function LogosSection() {
 
       <div className="relative overflow-hidden">
         {/* Fade Edges */}
-        <div className="pointer-events-none absolute left-0 top-0 z-20 h-full w-32 bg-gradient-to-r from-background to-transparent" />
-        <div className="pointer-events-none absolute right-0 top-0 z-20 h-full w-32 bg-gradient-to-l from-background to-transparent" />
-
-        {/* Center Highlight Line
-        <div className="pointer-events-none absolute left-1/2 top-0 z-10 h-full w-px -translate-x-1/2 bg-brand/20" /> */}
+        <div className="pointer-events-none absolute left-0 top-0 z-20 h-full w-20 md:w-32 bg-gradient-to-r from-background to-transparent" />
+        <div className="pointer-events-none absolute right-0 top-0 z-20 h-full w-20 md:w-32 bg-gradient-to-l from-background to-transparent" />
 
         <motion.div
-          className="flex items-center gap-6"
+          className="flex items-center gap-4 md:gap-6"
           animate={{ x: ["0%", "-50%"] }}
           transition={{
-            duration: 35,
+            duration: isMobile ? 80 : 45,
             ease: "linear",
             repeat: Infinity,
           }}
@@ -427,19 +435,25 @@ function LogosSection() {
                 key={`${company.name}-${index}`}
                 ref={(el) => (logoRefs.current[index] = el)}
                 className="flex items-center justify-center"
-                style={{ minWidth: 220 }}
+                style={{
+                  minWidth: isMobile ? 160 : 220,
+                }}
               >
-                <div className="flex h-24 w-56 items-center justify-center">
+                <div
+                  className={`flex items-center justify-center ${
+                    isMobile ? "h-16 w-40" : "h-24 w-56"
+                  }`}
+                >
                   <img
                     src={company.logo}
                     alt={company.name}
                     loading="lazy"
                     className={`
-                      object-contain transition-all duration-2000
+                      object-contain transition-all duration-1000
                       ${
                         isActive
-                          ? "max-h-20 opacity-100 grayscale-0 scale-110"
-                          : "max-h-16 opacity-70 grayscale scale-90"
+                          ? "max-h-16 md:max-h-20 opacity-100 grayscale-0 scale-105"
+                          : "max-h-12 md:max-h-16 opacity-70 grayscale scale-90"
                       }
                     `}
                     style={
@@ -460,7 +474,6 @@ function LogosSection() {
     </section>
   );
 }
-
 
 // ─── Services Section ────────────────────────────────────────────────────────
 

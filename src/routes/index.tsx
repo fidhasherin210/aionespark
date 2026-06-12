@@ -152,9 +152,9 @@ function RevealSection({
 
 const services = [
   { icon: Monitor, label: "Education Software", active: true },
-  { icon: GraduationCap, label: "Mobile Applications(pwa)", active: true },
+  { icon: GraduationCap, label: "Mobile Applications(PWA)", active: true },
   { icon: ShoppingCart, label: "Web Applications", active: true },
-  { icon: Globe, label: "Website & Seo ", active: true },
+  { icon: Globe, label: "Website & E-Commerce Solutions", active: true },
 ];
 const stats = [
   { value: "50+", label: "Projects" },

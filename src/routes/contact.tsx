@@ -2,16 +2,16 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PageShell, PageHeader } from "@/components/page-shell";
 import contactOffice from "@/assets/contact-office.jpg";
 import { Mail, Phone, MapPin, ArrowRight } from "lucide-react";
-import { useState } from "react";
+import React, { useState } from "react";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
+    title: "Aione Spark — Modern Web Design & Digital Growth",
     meta: [
-  { title: "Aione Spark — Modern Web Design & Digital Growth" },
-  { name: "description", content: "Aione Spark builds modern, high-performance websites and digital solutions to grow your business online." },
-  { property: "og:title", content: "Aione Spark — Modern Web Design & Digital Growth" },
-  { property: "og:description", content: "We create fast, responsive and scalable websites for startups and businesses." },
-],
+      { name: "description", content: "Aione Spark builds modern, high-performance websites and digital solutions to grow your business online." },
+      { property: "og:title", content: "Aione Spark — Modern Web Design & Digital Growth" },
+      { property: "og:description", content: "We create fast, responsive and scalable websites for startups and businesses." },
+    ],
   }),
   component: ContactPage,
 });

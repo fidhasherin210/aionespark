@@ -9,7 +9,7 @@ import heroAnalytics from "@/assets/aionespark-03.jpg";
 import edusafaLogo from "@/assets/edu-white.png";
 import edusafaDashboard from "@/assets/dashboard.png";
 import { PageShell, PageHeader } from "@/components/page-shell";
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   motion,
   useInView,
@@ -71,12 +71,12 @@ const companyLogos = [
 
 export const Route = createFileRoute("/")({
   head: () => ({
+    title: "Aione Spark — Modern Web Design & Digital Growth",
     meta: [
-  { title: "Aione Spark — Modern Web Design & Digital Growth" },
-  { name: "description", content: "Aione Spark builds modern, high-performance websites and digital solutions to grow your business online." },
-  { property: "og:title", content: "Aione Spark — Modern Web Design & Digital Growth" },
-  { property: "og:description", content: "We create fast, responsive and scalable websites for startups and businesses." },
-],
+      { name: "description", content: "Aione Spark builds modern, high-performance websites and digital solutions to grow your business online." },
+      { property: "og:title", content: "Aione Spark — Modern Web Design & Digital Growth" },
+      { property: "og:description", content: "We create fast, responsive and scalable websites for startups and businesses." },
+    ],
   }),
   component: Index,
 });
@@ -131,7 +131,7 @@ function RevealSection({
   className?: string;
   delay?: number;
 }) {
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
@@ -151,10 +151,10 @@ function RevealSection({
 // ─── Data ───────────────────────────────────────────────────────────────────
 
 const services = [
-  { icon: Monitor, label: "Website Design", active: true },
-  { icon: GraduationCap, label: "Education Software", active: true },
-  { icon: ShoppingCart, label: "E-Commerce Solutions", active: true },
-  { icon: Globe, label: "Web Applications", active: true },
+  { icon: Monitor, label: "Education Software", active: true },
+  { icon: GraduationCap, label: "Mobile Applications(pwa)", active: true },
+  { icon: ShoppingCart, label: "Web Applications", active: true },
+  { icon: Globe, label: "Website & Seo ", active: true },
 ];
 const stats = [
   { value: "50+", label: "Projects" },
@@ -231,12 +231,17 @@ function HeroSlider() {
   const goTo = (i: number) => setCurrent((i + slides.length) % slides.length);
 
   const startAuto = () => {
-    timerRef.current = setInterval(() => setCurrent(c => (c + 1) % slides.length), 4000);
+    timerRef.current = setInterval(
+      () => setCurrent((c) => (c + 1) % slides.length),
+      4000
+    );
   };
 
   useEffect(() => {
     startAuto();
-    return () => { if (timerRef.current) clearInterval(timerRef.current); };
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
   }, []);
 
   const nav = (dir: number) => {
@@ -246,80 +251,91 @@ function HeroSlider() {
   };
 
   return (
-    <RevealSection variants={scaleIn} className="relative z-10 mx-auto mt-4 max-w-3xl px-4">
-      <div className="relative h-[400px] md:h-[450px] overflow-hidden rounded-2xl">
+  <RevealSection
+  variants={scaleIn}
+  className="relative z-10 mx-auto mt-4 max-w-3xl px-4"
+>
+      <div className="relative h-[320px] overflow-hidden rounded-2xl md:h-[380px]">
+        {/* Glow */}
         <div
           className="absolute inset-0 -z-10 rounded-3xl opacity-40 blur-3xl"
           style={{ background: "var(--gradient-brand)" }}
         />
 
+        {/* Slides */}
         <div
-          className="flex h-full w-full transition-transform duration-500 ease-in-out"
+          className="flex h-full w-full transition-transform duration-700 ease-in-out"
           style={{ transform: `translateX(-${current * 100}%)` }}
         >
-         {slides.map((slide, idx) => (
-  <div
-    key={idx}
-    className="relative h-full min-w-full flex-shrink-0 overflow-hidden"
-  >
-    <img
-      src={slide.image}
-      alt=""
-      className="absolute inset-0 h-full w-full object-cover object-center"
-    />
-
-    <div
-      className="absolute inset-0"
-      style={{
-        background:
-          "linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.3) 45%, transparent 75%)",
-      }}
-    />
-
-    <AnimatePresence mode="wait">
-      {current === idx && (
-        <motion.div
-          key={idx}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -10 }}
-          transition={{ duration: 0.5 }}
-          className="absolute bottom-0 left-0 right-0 p-6 md:p-8"
-        >
-          <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-medium uppercase tracking-widest text-white backdrop-blur-sm">
-            <span className="h-1.5 w-1.5 rounded-full bg-white/70" />
-            {slide.eyebrow}
-          </span>
-
-          <h2 className="mt-3 text-2xl font-bold leading-snug text-white md:text-3xl">
-            {slide.headline}
-          </h2>
-
-         
-
-          <div className="mt-5 flex items-center gap-4">
-            <Link
-              to={slide.cta.to}
-              className="group inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-xs font-semibold text-gray-900 transition hover:bg-white/90"
+          {slides.map((slide, idx) => (
+            <div
+              key={idx}
+              className="relative h-full min-w-full flex-shrink-0 overflow-hidden"
             >
-              {slide.cta.label}
-              <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
-            </Link>
+              {/* Image */}
+              <img
+                src={slide.image}
+                alt={slide.headline}
+                className={`absolute inset-0 h-full w-full object-cover object-center transition-transform duration-[6000ms] ${
+                  current === idx ? "scale-110" : "scale-100"
+                }`}
+              />
 
-           
-          </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  </div>
-))}
+              {/* Overlay */}
+              <div
+                className="absolute inset-0"
+                style={{
+                  background:
+                    "linear-gradient(to top, rgba(0,0,0,0.60) 0%, rgba(0,0,0,0.20) 45%, transparent 75%)",
+                }}
+              />
+
+              {/* Content */}
+              <AnimatePresence mode="wait">
+                {current === idx && (
+                  <motion.div
+                    key={idx}
+                    initial={{ opacity: 0, y: 24 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -12 }}
+                    transition={{ duration: 0.6 }}
+                    className="absolute bottom-0 left-0 right-0 p-5 md:p-6"
+                  >
+                    {/* Eyebrow */}
+                    <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-medium uppercase tracking-widest text-white backdrop-blur-sm">
+                      <span className="h-1.5 w-1.5 rounded-full bg-white/70" />
+                      {slide.eyebrow}
+                    </span>
+
+                    {/* Heading */}
+                    <h2 className="mt-2 text-2xl font-bold leading-tight text-white md:text-4xl">
+                      {slide.headline}
+                    </h2>
+
+                    {/* CTA */}
+                  
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          ))}
         </div>
 
-        <div className="absolute bottom-3.5 right-7 flex items-center gap-1.5">
+        {/* Dots */}
+        <div className="absolute bottom-4 right-6 flex items-center gap-2">
           {slides.map((_, i) => (
-            <button key={i}
-              onClick={() => { if (timerRef.current) clearInterval(timerRef.current); goTo(i); startAuto(); }}
-              className={`h-1 rounded-full bg-white transition-all duration-300 ${i === current ? "w-5 opacity-100" : "w-2 opacity-40"}`}
+            <button
+              key={i}
+              onClick={() => {
+                if (timerRef.current) clearInterval(timerRef.current);
+                goTo(i);
+                startAuto();
+              }}
+              className={`rounded-full bg-white transition-all duration-500 ${
+                i === current
+                  ? "h-2 w-8 opacity-100"
+                  : "h-2 w-2 opacity-50 hover:opacity-80"
+              }`}
               aria-label={`Go to slide ${i + 1}`}
             />
           ))}
@@ -328,20 +344,19 @@ function HeroSlider() {
     </RevealSection>
   );
 }
-
 // ─── Company Logos Strip ────────────────────────────────────────────────────
 
 function LogosSection() {
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-60px" });
 
-  const logoRefs = useRef([]);
+  const logoRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [activeIndex, setActiveIndex] = useState(0);
 
   const duplicatedLogos = [...companyLogos, ...companyLogos];
 
   useEffect(() => {
-    let frameId;
+    let frameId = 0;
 
     const updateCenterLogo = () => {
       const viewportCenter = window.innerWidth / 2;
@@ -423,11 +438,11 @@ function LogosSection() {
                     alt={company.name}
                     loading="lazy"
                     className={`
-                      object-contain transition-all duration-500
+                      object-contain transition-all duration-2000
                       ${
                         isActive
                           ? "max-h-20 opacity-100 grayscale-0 scale-110"
-                          : "max-h-16 opacity-40 grayscale scale-90"
+                          : "max-h-16 opacity-70 grayscale scale-90"
                       }
                     `}
                     style={
@@ -453,7 +468,7 @@ function LogosSection() {
 // ─── Services Section ────────────────────────────────────────────────────────
 
 function ServicesSection() {
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
@@ -527,12 +542,19 @@ function ServicesSection() {
 
 // ─── Glass Card with mouse-tracking spotlight ──────────────────────────────────
 
-function GlassCard({ s }) {
-  const cardRef  = useRef(null);
+interface Service {
+  icon: React.ComponentType<{ className?: string }>;
+  label: string;
+  active: boolean;
+}
+
+function GlassCard({ s }: { s: Service }) {
+  const cardRef  = useRef<HTMLDivElement>(null);
   const [pos, setPos] = useState({ x: 0, y: 0 });
   const [hovered, setHovered] = useState(false);
  
-  const handleMouseMove = (e) => {
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
     setPos({
       x: e.clientX - rect.left,
@@ -627,7 +649,7 @@ function GlassCard({ s }) {
 // ─── About Section ───────────────────────────────────────────────────────────
 
 function AboutSection() {
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
@@ -742,7 +764,7 @@ function AboutSection() {
 // ─── Edusafa Section ─────────────────────────────────────────────────────────
 
 function EdusafaSection() {
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
@@ -928,7 +950,7 @@ function EdusafaSection() {
 // ─── Testimonials Section ─────────────────────────────────────────────────────
 
 function TestimonialsSection() {
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   return (

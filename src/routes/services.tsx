@@ -13,12 +13,12 @@ import voraLogo from "@/assets/vora .png";
 
 export const Route = createFileRoute("/services")({
   head: () => ({
-   meta: [
-  { title: "Aione Spark — Modern Web Design & Digital Growth" },
-  { name: "description", content: "Aione Spark builds modern, high-performance websites and digital solutions to grow your business online." },
-  { property: "og:title", content: "Aione Spark — Modern Web Design & Digital Growth" },
-  { property: "og:description", content: "We create fast, responsive and scalable websites for startups and businesses." },
-],
+    title: "Aione Spark — Modern Web Design & Digital Growth",
+    meta: [
+      { name: "description", content: "Aione Spark builds modern, high-performance websites and digital solutions to grow your business online." },
+      { property: "og:title", content: "Aione Spark — Modern Web Design & Digital Growth" },
+      { property: "og:description", content: "We create fast, responsive and scalable websites for startups and businesses." },
+    ],
   }),
   component: ServicesPage,
 });
@@ -106,7 +106,13 @@ const faqs = [
 
 // ─── FAQ accordion item ────────────────────────────────────────────────────────
 
-function FaqItem({ q, a, index }) {
+interface FaqItemProps {
+  q: string;
+  a: string;
+  index: number;
+}
+
+function FaqItem({ q, a, index }: FaqItemProps) {
   const [open, setOpen] = useState(false);
   return (
     <motion.div
@@ -189,7 +195,7 @@ function StickyCta() {
 // ─── Page ──────────────────────────────────────────────────────────────────────
 
 function ServicesPage() {
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-60px" });
 
   return (

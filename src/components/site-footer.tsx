@@ -15,13 +15,12 @@ export function SiteFooter() {
 </Link>
    <p className="mt-3 text-sm text-muted-foreground">
   Empowering businesses with innovative technology solutions that drive growth, efficiency, and digital transformation.
-
 </p>
         </div>
         <div>
           <h4 className="text-sm font-semibold">Company</h4>
           <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
-            <li><Link to="/home" className="hover:text-foreground">Home</Link></li>
+            <li><Link to="/" className="hover:text-foreground">Home</Link></li>
             <li><Link to="/about" className="hover:text-foreground">About</Link></li>
             <li><Link to="/services" className="hover:text-foreground">Services</Link></li>
             <li><Link to="/contact" className="hover:text-foreground">Contact</Link></li>

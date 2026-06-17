@@ -76,7 +76,7 @@ const projects = [
     category: "Business Website",
     desc: "A modern corporate website designed to showcase creative services, strengthen brand identity, and provide a seamless user experience across devices.",
     tag: "Creative Agency",
-    year: "2025",
+    year: "2026",
     logo: voraLogo,
   },
   {
@@ -84,7 +84,7 @@ const projects = [
     category: "Sanitary Products Website",
     desc: "Professional product-focused website developed for a sanitaryware brand, featuring product showcases, company information, and a responsive design experience.",
     tag: "Business",
-    year: "2025",
+    year: "2026",
     logo: emboloLogo,
   },
   {
@@ -92,7 +92,7 @@ const projects = [
     category: "Healthcare Platform",
     desc: "A professional healthcare website built to showcase medical services, specialist departments, doctor information, and patient-focused digital experiences.",
     tag: "Healthcare",
-    year: "2025",
+    year: "2026",
     logo: ehLogo,
   },
 ];

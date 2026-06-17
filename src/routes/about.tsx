@@ -4,7 +4,7 @@ import aboutTeam from "@/assets/aione.jpeg";
 import {
   Target, Sparkles, Users, Award, Rocket,
   Globe, ShieldCheck, Zap, Code2, BarChart3, Smartphone,
-  CheckCircle2, ArrowRight, Star, Quote,
+  ArrowRight, Star, Quote,
 } from "lucide-react";
 
 export const Route = createFileRoute("/about")({
@@ -95,33 +95,7 @@ const whyUs = [
   },
 ];
 
-const processSteps = [
-  {
-    num: "01",
-    title: "Requirement Analysis",
-    text: "We understand your business goals, technical needs, and project scope in detail before starting development.",
-  },
-  {
-    num: "02",
-    title: "Planning & Strategy",
-    text: "We define system architecture, technology stack, and project roadmap to ensure a smooth development process.",
-  },
-  {
-    num: "03",
-    title: "UI/UX Design",
-    text: "We create modern, user-friendly designs focused on better user experience and engagement.",
-  },
-  {
-    num: "04",
-    title: "Development & Testing",
-    text: "We build scalable applications with continuous testing to ensure performance, security, and reliability.",
-  },
-  {
-    num: "05",
-    title: "Deployment & Support",
-    text: "We deploy your application and provide ongoing support, maintenance, and improvements.",
-  },
-];
+
 
 
 
@@ -295,22 +269,15 @@ function AboutPage() {
       </div>
 
       <blockquote className="border-l-2 border-brand/40 pl-3 text-sm italic leading-relaxed text-foreground/90">
-        "Technology is not just about software and systems; it's about creating opportunities, solving problems, and helping businesses achieve their full potential."
+        "Technology is not just about software; it's about creating opportunities, solving problems, and improving everyday life."
       </blockquote>
 
       {/* Text */}
       <div className="space-y-3 text-sm leading-relaxed text-muted-foreground">
-       <p>
-When I started Aione Spark, I had a simple vision in mind — technology should not be limited to large corporations; it should be accessible and beneficial to businesses of all sizes. I noticed that many organizations struggled to find solutions that were reliable, practical, and tailored to their specific needs. Those experiences became the foundation of what Aione Spark is today.
-</p>
-
-<p>
- We view every project we undertake not merely as a task, but as a responsibility. By understanding each client's goals and challenges, we strive to deliver solutions that create real value for their business. Rather than offering one-size-fits-all products, our approach is to build systems that are carefully designed to meet the unique requirements of every client.
-</p>
-
-<p>
-  As Aione Spark continues to grow, our core values remain unchanged — integrity, reliability, quality, and customer satisfaction. I would like to sincerely thank all our clients for the trust they place in us. Our greatest goal is to remain a dependable technology partner, supporting your journey toward growth and success.
-</p>
+   <p className="font-medium text-foreground italic">  </p>
+    <p> When I founded Aione Spark, my vision was simple — to make technology accessible, practical, and valuable for businesses of all sizes. I saw many organizations struggling to find reliable solutions tailored to their unique needs, which inspired the foundation of our company. </p> 
+    <p> At Aione Spark, we go beyond building software. We create innovative technology solutions that help businesses improve efficiency, unlock new opportunities, and achieve sustainable growth. </p> 
+    <p> As we continue to grow, our commitment to integrity, quality, innovation, and customer satisfaction remains at the heart of everything we do. Thank you for your trust and support. We look forward to being your technology partner on the journey ahead. </p>
       </div>
 
     </div>
@@ -348,9 +315,10 @@ When I started Aione Spark, I had a simple vision in mind — technology should 
         <h3 className="mt-4 text-xl font-bold tracking-tight">Our Mission</h3>
 
         <p className="mt-3 leading-relaxed text-muted-foreground">
-          Our mission is to deliver innovative, reliable, and scalable IT solutions that help businesses grow.
-          We focus on building high-quality software, web applications, and mobile solutions that improve efficiency,
-          enhance performance, and create long-term value for our clients.
+        To deliver innovative, reliable, and practical technology solutions that empower
+         businesses to improve efficiency, solve real-world challenges, and achieve sustainable growth. 
+         We are committed to making technology accessible and impactful for organizations of all sizes through quality,
+         integrity, and customer-focused innovation.
         </p>
       </div>
     </div>
@@ -368,9 +336,9 @@ When I started Aione Spark, I had a simple vision in mind — technology should 
         <h3 className="mt-4 text-xl font-bold tracking-tight">Our Vision</h3>
 
         <p className="mt-3 leading-relaxed text-muted-foreground">
-          To become a trusted global IT partner delivering world-class digital solutions.
-          We aim to empower every business—regardless of size—with modern technology,
-          helping them transform digitally and achieve sustainable growth.
+          To become a trusted technology partner that bridges the gap between 
+          innovation and real-world needs, transforming industries and communities through accessible 
+          digital solutions that create better ways to live, work, and grow.
         </p>
       </div>
     </div>
@@ -458,58 +426,7 @@ When I started Aione Spark, I had a simple vision in mind — technology should 
   </div>
 </section>
 
-      {/* ── 6. PROCESS ── */}
-     <section className="relative z-10 mx-auto mt-14 max-w-5xl px-6">
-  <div className="mb-8 text-center">
-    <span className="inline-flex items-center gap-1.5 rounded-full border border-brand/30 bg-brand/10 px-3 py-1 text-xs font-medium text-brand">
-      How We Work
-    </span>
-
-    <h2 className="mt-3 text-2xl font-bold tracking-tight md:text-3xl">
-      Our Process
-    </h2>
-
-    <p className="mx-auto mt-3 max-w-md text-sm text-muted-foreground">
-      A simple and transparent workflow to turn your ideas into powerful digital solutions.
-      We ensure clarity, speed, and quality at every stage.
-    </p>
-  </div>
-
-  <div className="relative">
-
-    {/* Timeline line */}
-    <div className="absolute left-[18px] top-0 hidden h-full w-px bg-gradient-to-b from-brand/40 via-brand/20 to-transparent md:block" />
-
-    <div className="space-y-4">
-      {processSteps.map((step) => (
-        <div key={step.num} className="group relative flex gap-5">
-
-          {/* Step number */}
-          <div className="relative z-10 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-brand/40 bg-background text-xs font-bold text-brand ring-4 ring-background transition-all duration-200 group-hover:border-brand group-hover:bg-brand/10">
-            {step.num}
-          </div>
-
-          {/* Content */}
-          <div className="flex-1 rounded-2xl border border-white/[0.06] bg-surface/40 p-5 backdrop-blur transition-all duration-200 group-hover:border-brand/20 group-hover:bg-surface/60">
-            <div className="flex items-center justify-between">
-              <h3 className="text-sm font-semibold">{step.title}</h3>
-              <CheckCircle2
-                className="h-4 w-4 text-brand/30 transition-colors duration-200 group-hover:text-brand"
-                strokeWidth={1.75}
-              />
-            </div>
-
-            <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">
-              {step.text}
-            </p>
-          </div>
-
-        </div>
-      ))}
-    </div>
-  </div>
-</section>
-
+      
 
     </PageShell>
   );

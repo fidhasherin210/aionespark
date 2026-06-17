@@ -4,7 +4,7 @@ import { motion, useInView, AnimatePresence } from "framer-motion";
 import { PageShell, PageHeader } from "@/components/page-shell";
 import {
   Code2, Calculator, Layers, Megaphone, Palette, GraduationCap,
-  ArrowRight, Plus, Minus, ExternalLink,
+  ArrowRight, Plus, Minus, ExternalLink, CheckCircle2,
 } from "lucide-react";
 
 import ehLogo from "@/assets/ehhospital.png";
@@ -96,61 +96,38 @@ const projects = [
     logo: ehLogo,
   },
 ];
-const faqs = [
-  { q: "How long does a typical project take?",                   a: "Timelines vary by scope. A standard web app takes 6–12 weeks; enterprise software can take 3–6 months. We give a detailed estimate after our discovery call." },
-  { q: "Do you work with startups or only established businesses?", a: "Both. We love working with early-stage startups as much as we enjoy scaling established businesses. Our packages are flexible to match different budgets and growth stages." },
-  { q: "What does the development process look like?",             a: "We follow an agile approach: Discovery → Design → Development → Testing → Launch → Support. You get weekly updates, a shared project board, and direct access to your team." },
-  { q: "Do you offer post-launch support?",                        a: "Yes — all projects include a 30-day warranty. Beyond that, we offer monthly retainer packages for ongoing maintenance, feature additions, and technical support." },
-  { q: "Can I see examples of your past work?",                    a: "Absolutely. Check the Featured Projects section above, or reach out and we'll share a full portfolio relevant to your industry." },
+
+const processSteps = [
+  {
+    num: "01",
+    title: "Requirement Analysis",
+    text: "We understand your business goals, technical needs, and project scope in detail before starting development.",
+  },
+  {
+    num: "02",
+    title: "Planning & Strategy",
+    text: "We define system architecture, technology stack, and project roadmap to ensure a smooth development process.",
+  },
+  {
+    num: "03",
+    title: "UI/UX Design",
+    text: "We create modern, user-friendly designs focused on better user experience and engagement.",
+  },
+  {
+    num: "04",
+    title: "Development & Testing",
+    text: "We build scalable applications with continuous testing to ensure performance, security, and reliability.",
+  },
+  {
+    num: "05",
+    title: "Deployment & Support",
+    text: "We deploy your application and provide ongoing support, maintenance, and improvements.",
+  },
 ];
+
 
 // ─── FAQ accordion item ────────────────────────────────────────────────────────
 
-interface FaqItemProps {
-  q: string;
-  a: string;
-  index: number;
-}
-
-function FaqItem({ q, a, index }: FaqItemProps) {
-  const [open, setOpen] = useState(false);
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-40px" }}
-      transition={{ delay: index * 0.06, duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-      className="border-b border-border last:border-0"
-    >
-      <button
-        onClick={() => setOpen((v) => !v)}
-        className="flex w-full items-center justify-between gap-4 py-5 text-left"
-      >
-        <span className="text-sm font-semibold leading-snug">{q}</span>
-        <span
-          className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full border transition-all duration-300 ${
-            open ? "border-brand/40 bg-brand/10 text-brand" : "border-border text-muted-foreground"
-          }`}
-        >
-          {open ? <Minus className="h-3.5 w-3.5" /> : <Plus className="h-3.5 w-3.5" />}
-        </span>
-      </button>
-      <AnimatePresence initial={false}>
-        {open && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="overflow-hidden"
-          >
-            <p className="pb-5 text-sm leading-relaxed text-muted-foreground">{a}</p>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.div>
-  );
-}
 
 // ─── Sticky CTA ────────────────────────────────────────────────────────────────
 
@@ -338,51 +315,58 @@ function ServicesPage() {
         </div>
       </section>
 
-      {/* ── FAQ ─────────────────────────────────────────────────── */}
-      <section className="relative z-10 mx-auto mt-20 max-w-5xl px-6 pb-28">
-        <div className="grid gap-10 md:grid-cols-[1fr_1.6fr]">
-          {/* Left sticky heading */}
-          <div className="md:sticky md:top-24 md:self-start">
-            <motion.p
-              initial={{ opacity: 0, y: 8 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4 }}
-              className="mb-1 text-[11px] font-bold uppercase tracking-[0.18em] text-muted-foreground"
-            >
-              Got questions?
-            </motion.p>
-            <motion.h2
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.05, duration: 0.45 }}
-              className="text-2xl font-bold leading-snug"
-            >
-              Frequently Asked Questions
-            </motion.h2>
-            <motion.p
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1, duration: 0.45 }}
-              className="mt-3 text-sm leading-relaxed text-muted-foreground"
-            >
-              Can&apos;t find what you&apos;re looking for?{" "}
-              <Link to="/contact" className="font-semibold text-brand hover:underline">
-                Ask us directly →
-              </Link>
-            </motion.p>
+{/* ── 6. PROCESS ── */}
+     <section className="relative z-10 mx-auto mt-14 max-w-5xl px-6">
+  <div className="mb-8 text-center">
+    <span className="inline-flex items-center gap-1.5 rounded-full border border-brand/30 bg-brand/10 px-3 py-1 text-xs font-medium text-brand">
+      How We Work
+    </span>
+
+    <h2 className="mt-3 text-2xl font-bold tracking-tight md:text-3xl">
+      Our Process
+    </h2>
+
+    <p className="mx-auto mt-3 max-w-md text-sm text-muted-foreground">
+      A simple and transparent workflow to turn your ideas into powerful digital solutions.
+      We ensure clarity, speed, and quality at every stage.
+    </p>
+  </div>
+
+  <div className="relative">
+
+    {/* Timeline line */}
+    <div className="absolute left-[18px] top-0 hidden h-full w-px bg-gradient-to-b from-brand/40 via-brand/20 to-transparent md:block" />
+
+    <div className="space-y-4">
+      {processSteps.map((step) => (
+        <div key={step.num} className="group relative flex gap-5">
+
+          {/* Step number */}
+          <div className="relative z-10 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-brand/40 bg-background text-xs font-bold text-brand ring-4 ring-background transition-all duration-200 group-hover:border-brand group-hover:bg-brand/10">
+            {step.num}
           </div>
 
-          {/* Right: accordion */}
-          <div className="rounded-2xl border border-border bg-surface/60 px-6 backdrop-blur">
-            {faqs.map((f, i) => (
-              <FaqItem key={f.q} q={f.q} a={f.a} index={i} />
-            ))}
+          {/* Content */}
+          <div className="flex-1 rounded-2xl border border-white/[0.06] bg-surface/40 p-5 backdrop-blur transition-all duration-200 group-hover:border-brand/20 group-hover:bg-surface/60">
+            <div className="flex items-center justify-between">
+              <h3 className="text-sm font-semibold">{step.title}</h3>
+              <CheckCircle2
+                className="h-4 w-4 text-brand/30 transition-colors duration-200 group-hover:text-brand"
+                strokeWidth={1.75}
+              />
+            </div>
+
+            <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">
+              {step.text}
+            </p>
           </div>
+
         </div>
-      </section>
+      ))}
+    </div>
+  </div>
+</section>
+
 
       {/* ── Sticky CTA ──────────────────────────────────────────── */}
       <StickyCta />

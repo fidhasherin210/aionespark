@@ -163,25 +163,32 @@ const stats = [
 ];
 
 const testimonials = [
- {
+  {
     name: "Rashid",
-    role: "Business Owner",
+    role: "CEO, Beeone Digital",
     content:
-     "I had a great experience working with this team. They understood my requirements clearly and delivered the project on time.  I'm really satisfied with the results and would gladly work with them again.",
+      "I had a great experience working with this team. They understood my requirements clearly and delivered the project on time. I'm really satisfied with the results and would gladly work with them again.",
     rating: 5,
   },
   {
-    name: "Anas ",
-    role: "Airemarat",
+    name: "Anas",
+    role: "Founder, Airemarat",
     content:
-     "I'm very happy with the service I received. The team was friendly, professional, and quick to respond. They delivered exactly what I needed, and the final product works perfectly. I would definitely recommend them to others.",
+      "I'm very happy with the service I received. The team was friendly, professional, and quick to respond. They delivered exactly what I needed, and the final product works perfectly. I would definitely recommend them to others.",
     rating: 5,
   },
   {
     name: "Kabeer",
-    role: "Business",
+    role: "Founder, Bizway Future LLP",
     content:
       "The service was excellent from start to finish. The team was knowledgeable, helpful, and easy to work with. They created a solution that fits our business perfectly. I highly recommend them for any IT needs.",
+    rating: 5,
+  },
+  {
+    name: "Moonis",
+    role: "Designated Partner, Vora Creative",
+    content:
+      "AioneSpark did an excellent job creating our website. The team was professional, responsive, and delivered a modern, user-friendly site that exceeded our expectations.",
     rating: 5,
   },
 ];
@@ -684,13 +691,13 @@ function AboutSection() {
 
   <div className="mt-2 h-1 w-20 rounded-full bg-brand" />
 
-  <p className="mt-6 text-muted-foreground leading-relaxed">
-    We are a dedicated IT company delivering innovative and reliable
-    technology solutions for businesses of all sizes. From custom software
-    development to web applications and accounting solutions, we help
-    organizations streamline operations, improve efficiency, and achieve
-    sustainable growth through technology.
-  </p>
+ <p className="mt-6 text-muted-foreground leading-relaxed">
+  We are a dedicated IT company delivering innovative and reliable
+  technology solutions for businesses and educational institutions. From
+  custom software development and web applications to smart education
+  softwares, we help organizations improve efficiency, enhance user
+  experiences, and achieve sustainable growth through technology.
+</p>
 
   <motion.ul
     className="mt-8 space-y-4"
@@ -816,22 +823,23 @@ function EdusafaSection() {
 <div className="mt-1.5 h-0.5 w-12 rounded-full bg-gradient-to-r from-brand to-brand-light" />
 
 <h3 className="mt-4 text-2xl font-bold">
-  The Complete Digital Solution for Madrasa Management
+The Complete Digital Platform for Moral Education Institutions
 </h3>
 
 <p className="mt-2 text-sm text-muted-foreground">
-  Empowering madrasas with modern technology to simplify administration,
-  enhance communication, and improve educational management.
+  Empowering moral education institutions with modern technology to simplify
+  administration, enhance communication, and improve educational management.
 </p>
 
 <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-  Edusafa is a comprehensive madrasa management software designed to connect
+  Edusafa is a comprehensive education management software designed to connect
   administrators, teachers, students, and parents through a single digital
   platform. From attendance tracking and student records to fee management,
   academic progress monitoring, and parent communication, Edusafa streamlines
-  daily operations and helps madrasas deliver a more organized and efficient
-  learning experience.
+  daily operations and helps institutions deliver a more organized and
+  efficient learning experience.
 </p>
+
 
 <div className="mt-5 grid grid-cols-3 gap-3">
   {[
@@ -962,6 +970,51 @@ function EdusafaSection() {
 function TestimonialsSection() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
+  
+  // State for desktop slider
+  const [currentSlide, setCurrentSlide] = useState(0);
+  
+  // Create extended array for infinite loop effect (duplicate testimonials)
+  const extendedTestimonials = [...testimonials, ...testimonials, ...testimonials];
+  
+  // Auto-slide with infinite loop
+  useEffect(() => {
+    if (!isInView) return;
+    
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => {
+        const next = prev + 1;
+        // Reset to middle section when reaching the end
+        if (next >= testimonials.length * 2) {
+          return testimonials.length;
+        }
+        return next;
+      });
+    }, 5000);
+    
+    return () => clearInterval(interval);
+  }, [isInView, testimonials.length]);
+
+  const goToSlide = (index: number) => {
+    setCurrentSlide(index + testimonials.length);
+  };
+
+  const goToPrev = () => {
+    setCurrentSlide((prev) => prev - 1);
+  };
+
+  const goToNext = () => {
+    setCurrentSlide((prev) => prev + 1);
+  };
+
+  // Handle transition end to create infinite loop effect
+  const handleTransitionEnd = () => {
+    if (currentSlide >= testimonials.length * 2) {
+      setCurrentSlide(testimonials.length);
+    } else if (currentSlide < testimonials.length) {
+      setCurrentSlide(testimonials.length);
+    }
+  };
 
   return (
     <section
@@ -1027,60 +1080,104 @@ function TestimonialsSection() {
         ))}
       </div>
 
-      {/* Desktop Grid */}
+      {/* Desktop Slider with Infinite Loop - Centered with less width */}
+<div className="mt-12 hidden md:flex md:justify-center">
+  <div className="relative w-full max-w-2xl lg:max-w-3xl">
+    {/* Main Slider Container - reduced height */}
+    <div className="overflow-hidden rounded-2xl">
       <motion.div
-        className="mt-12 hidden gap-6 md:grid md:grid-cols-3"
-        variants={staggerContainer}
-        initial="hidden"
-        animate={isInView ? "visible" : "hidden"}
+        className="flex"
+        animate={{ x: `-${currentSlide * 100}%` }}
+        transition={{ type: "spring", damping: 25, stiffness: 200 }}
+        onTransitionEnd={handleTransitionEnd}
       >
-        {testimonials.map((testimonial, i) => (
-          <motion.div
+        {extendedTestimonials.map((testimonial, i) => (
+          <div
             key={i}
-            variants={scaleIn}
-            whileHover={{
-              y: -6,
-              scale: 1.02,
-              transition: { duration: 0.25 },
-            }}
-            className="group relative rounded-2xl border border-border bg-surface/60 p-6 backdrop-blur transition-colors hover:border-brand/40"
-            style={{ boxShadow: "var(--shadow-card)" }}
+            className="min-w-full px-2"
           >
-            <div className="absolute -right-3 -top-3 text-brand/20 transition-colors group-hover:text-brand/40">
-              <Quote className="h-12 w-12" />
-            </div>
-
-            <div className="mb-4 flex gap-1">
-              {[...Array(testimonial.rating)].map((_, j) => (
-                <motion.div
-                  key={j}
-                  initial={{ opacity: 0, scale: 0 }}
-                  animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                  transition={{
-                    delay: 0.3 + i * 0.1 + j * 0.06,
-                    type: "spring",
-                  }}
-                >
-                  <Star className="h-4 w-4 fill-brand text-brand" />
-                </motion.div>
-              ))}
-            </div>
-
-            <p className="relative z-10 text-sm leading-relaxed text-foreground/90">
-              &quot;{testimonial.content}&quot;
-            </p>
-
-            <div className="mt-6 border-t border-border/50 pt-4">
-              <div className="text-sm font-semibold">
-                {testimonial.name}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={isInView ? { opacity: 1, scale: 1 } : {}}
+              transition={{ delay: 0.2 }}
+              className="group relative rounded-2xl border border-border bg-surface/60 p-5 backdrop-blur transition-colors hover:border-brand/40"
+              style={{ boxShadow: "var(--shadow-card)" }}
+            >
+              {/* Reduced padding and smaller elements */}
+              <div className="absolute -right-3 -top-3 text-brand/20 transition-colors group-hover:text-brand/40">
+                <Quote className="h-8 w-8" /> {/* Reduced from h-12 w-12 */}
               </div>
-              <div className="mt-1 text-xs text-muted-foreground">
-                {testimonial.role}
+
+              <div className="mb-3 flex gap-1"> {/* Reduced from mb-4 */}
+                {[...Array(testimonial.rating)].map((_, j) => (
+                  <motion.div
+                    key={j}
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={isInView ? { opacity: 1, scale: 1 } : {}}
+                    transition={{
+                      delay: 0.3 + (i % testimonials.length) * 0.1 + j * 0.06,
+                      type: "spring",
+                    }}
+                  >
+                    <Star className="h-3.5 w-3.5 fill-brand text-brand" /> {/* Reduced from h-4 w-4 */}
+                  </motion.div>
+                ))}
               </div>
-            </div>
-          </motion.div>
+
+              <p className="relative z-10 text-sm leading-relaxed text-foreground/90">
+                &quot;{testimonial.content}&quot;
+              </p>
+
+            <div className="mt-4 border-t border-border/50 pt-3"> {/* Reduced from mt-6 pt-4 */}
+  <div className="text-center"> {/* Added text-center wrapper */}
+    <div className="text-sm font-semibold">
+      {testimonial.name}
+    </div>
+    <div className="mt-0.5 text-xs text-muted-foreground"> {/* Reduced from mt-1 */}
+      {testimonial.role}
+    </div>
+  </div>
+</div>
+            </motion.div>
+          </div>
         ))}
       </motion.div>
+    </div>
+
+    {/* Navigation Buttons - adjusted position */}
+    <button
+      onClick={goToPrev}
+      className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 rounded-full bg-surface/80 p-1.5 backdrop-blur transition-all hover:bg-surface hover:scale-110 lg:-translate-x-6"
+      aria-label="Previous testimonial"
+    >
+      <ChevronLeft className="h-4 w-4" />
+    </button>
+
+    <button
+      onClick={goToNext}
+      className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 rounded-full bg-surface/80 p-1.5 backdrop-blur transition-all hover:bg-surface hover:scale-110 lg:translate-x-6"
+      aria-label="Next testimonial"
+    >
+      <ChevronRight className="h-4 w-4" />
+    </button>
+
+    {/* Dots Indicator - reduced top margin */}
+    <div className="mt-4 flex justify-center gap-2"> {/* Reduced from mt-6 */}
+      {testimonials.map((_, index) => (
+        <button
+          key={index}
+          onClick={() => goToSlide(index)}
+          className={`h-1.5 rounded-full transition-all duration-300 ${
+            (currentSlide % testimonials.length) === index
+              ? "w-6 bg-brand"
+              : "w-1.5 bg-border hover:bg-muted-foreground"
+          }`}
+          aria-label={`Go to testimonial ${index + 1}`}
+        />
+      ))}
+    </div>
+  </div>
+</div>
     </section>
   );
 }
@@ -1090,9 +1187,9 @@ function Index() {
   return (
     <PageShell>
      <PageHeader
-  eyebrow="Innovative Solutions"
-  title="Transforming"
-  accent="Digital Futures"
+  eyebrow="Sparking Innovation"
+  title="Turning Ideas Into"
+  accent="Digital Reality"
   subtitle="Empowering Businesses with Future-Ready Technology"
 />
 

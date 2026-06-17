@@ -13,8 +13,9 @@ export function SiteFooter() {
     className="h-8 w-auto object-contain"
   />
 </Link>
-          <p className="mt-3 text-sm text-muted-foreground">
-  Smart software, AI-driven systems, and digital solutions built for modern business growth.
+   <p className="mt-3 text-sm text-muted-foreground">
+  Empowering businesses with innovative technology solutions that drive growth, efficiency, and digital transformation.
+
 </p>
         </div>
         <div>
@@ -71,7 +72,7 @@ export function SiteFooter() {
   >
     Aione Spark TechHive LLP
   </a>{" "}
-  © 2025
+  © 2026
 </p>
     </footer>
   );

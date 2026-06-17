@@ -103,7 +103,7 @@ function AboutPage() {
   return (
     <PageShell>
       <PageHeader
-        eyebrow="Our Story"
+        eyebrow="About us"
         title="Built for"
         accent="Growth"
         subtitle="A studio of designers and engineers shaping the future of business online."
